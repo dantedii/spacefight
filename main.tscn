@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Area2D.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 582, 370 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="player1" parent="." instance=ExtResource( 1 )]
+position = Vector2( 71, 79 )
+
+[node name="player2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 932, 510 )
+player = 1
+
+[node name="wraparound" type="Area2D" parent="."]
+visible = false
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 2 )
+PADDING = 40
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wraparound"]
+position = Vector2( 512, 300 )
+shape = SubResource( 1 )
+
+[connection signal="body_exited" from="wraparound" to="wraparound" method="_on_Area2D_body_exited"]
